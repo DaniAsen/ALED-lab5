@@ -41,6 +41,11 @@ public class Area {
 	 */
 	public Area(String name, int time, int capacity, Position2D position) {
 		// TODO
+		this.name = name;
+		this.time = time;
+		this.capacity = capacity;
+		this.position = position;
+		
 		this.color = Color.GRAY; // Default color
 	}
 
@@ -97,6 +102,9 @@ public class Area {
 	 * @param p The patient that wants to enter.
 	 */
 	// TODO: method enter
+	public void enter(Patient p) {
+		
+	}
 	
 	/**
 	 * Thread safe method that allows a Patient to exit the area. After the Patient
@@ -105,13 +113,19 @@ public class Area {
 	 * @param p The patient that wants to enter.
 	 */
 	// TODO method exit
-	
+	public void exit(Patient p) {
+		
+		notifyAll();
+	}
 	/**
 	 * Returns the capacity of the Area. This method must be thread safe.
 	 * 
 	 * @return The capacity.
 	 */
 	// TODO: method getCapacity
+	public int getCapacity() {
+		return capacity;
+	}
 	
 	/**
 	 * Returns the current number of Patients being treated at the Area. This method must be thread safe.
@@ -119,13 +133,19 @@ public class Area {
 	 * @return The number of Patients being treated.
 	 */
 	// TODO: method getNumPatients
-
+	public int getNumPatients() {
+		return numPatients;
+	}
+	
 	/**
 	 * Returns the current number of Patients waiting to be treated at the Area. This method must be thread safe.
 	 * 
 	 * @return The number of Patients waiting to be treated.
 	 */
 	// TODO method getWaiting
+	public int getWaiting() {
+		return waiting;
+	}
 
 	@Override
 	public int hashCode() {
