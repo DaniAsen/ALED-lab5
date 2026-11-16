@@ -102,7 +102,19 @@ public class Area {
 	 * @param p The patient that wants to enter.
 	 */
 	// TODO: method enter
-	public void enter(Patient p) {
+	public synchronized void enter(Patient p) {
+		while(numPatients>= capacity){
+			try {
+				waiting++;
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			waiting--;
+		}
+		
+		numPatients++;
+		
 		
 	}
 	
@@ -113,8 +125,8 @@ public class Area {
 	 * @param p The patient that wants to enter.
 	 */
 	// TODO method exit
-	public void exit(Patient p) {
-		
+	public synchronized void exit(Patient p) {
+		numPatients--;
 		notifyAll();
 	}
 	/**
@@ -123,7 +135,7 @@ public class Area {
 	 * @return The capacity.
 	 */
 	// TODO: method getCapacity
-	public int getCapacity() {
+	public synchronized int getCapacity() {
 		return capacity;
 	}
 	
@@ -133,7 +145,7 @@ public class Area {
 	 * @return The number of Patients being treated.
 	 */
 	// TODO: method getNumPatients
-	public int getNumPatients() {
+	public synchronized int getNumPatients() {
 		return numPatients;
 	}
 	
@@ -143,7 +155,7 @@ public class Area {
 	 * @return The number of Patients waiting to be treated.
 	 */
 	// TODO method getWaiting
-	public int getWaiting() {
+	public synchronized int getWaiting() {
 		return waiting;
 	}
 
